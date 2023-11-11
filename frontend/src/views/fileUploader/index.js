@@ -16,16 +16,22 @@ const FileUploaderSingle = ({setResponseData, setReady, progress, setProgress}) 
   const [result, setResult] = useState({})
     
 
-const { getRootProps, getInputProps } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     multiple: false,
     accept: {
-      'video/*': [],
+      'video/mp4': [],
+      'video/quicktime': []
     },
     onDrop: acceptedFiles => {
-      setFiles(acceptedFiles.map(file => Object.assign(file)))
-    }
-  })
+        // Фильтруем только MP4 и MOV файлы
+        const validVideoFiles = acceptedFiles.filter(file => {
+            return ['video/mp4', 'video/quicktime'].includes(file.type);
+        });
 
+        // Обрабатываем только MP4 и MOV файлы
+        setFiles(validVideoFiles.map(file => Object.assign(file)));
+    }
+})
   const renderFilePreview = file => {
     if (file.type.startsWith('image')) {
       return <img className='rounded' alt={file.name} src={URL.createObjectURL(file)} height='28' width='28' />
