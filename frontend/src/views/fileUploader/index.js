@@ -148,7 +148,8 @@ const { getRootProps, getInputProps } = useDropzone({
             
             const response = await axios({
                 method: "POST",
-                url: "https://detect.roboflow.com/bad-traders/1",
+                // url: "https://detect.roboflow.com/bad-traders/1",
+                url: "https://detect.roboflow.com/item_final_2/2",
                 params: {
                   api_key: import.meta.env.VITE_APITOKEN
                 },
