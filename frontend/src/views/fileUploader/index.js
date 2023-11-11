@@ -16,16 +16,22 @@ const FileUploaderSingle = ({setResponseData, setReady, progress, setProgress}) 
   const [result, setResult] = useState({})
     
 
-const { getRootProps, getInputProps } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     multiple: false,
     accept: {
-      'video/*': [],
+      'video/mp4': [],
+      'video/quicktime': []
     },
     onDrop: acceptedFiles => {
-      setFiles(acceptedFiles.map(file => Object.assign(file)))
-    }
-  })
+        // Фильтруем только MP4 и MOV файлы
+        const validVideoFiles = acceptedFiles.filter(file => {
+            return ['video/mp4', 'video/quicktime'].includes(file.type);
+        });
 
+        // Обрабатываем только MP4 и MOV файлы
+        setFiles(validVideoFiles.map(file => Object.assign(file)));
+    }
+})
   const renderFilePreview = file => {
     if (file.type.startsWith('image')) {
       return <img className='rounded' alt={file.name} src={URL.createObjectURL(file)} height='28' width='28' />
@@ -148,7 +154,8 @@ const { getRootProps, getInputProps } = useDropzone({
             
             const response = await axios({
                 method: "POST",
-                url: "https://detect.roboflow.com/bad-traders/1",
+                // url: "https://detect.roboflow.com/bad-traders/1",
+                url: "https://detect.roboflow.com/item_final_2/2",
                 params: {
                   api_key: import.meta.env.VITE_APITOKEN
                 },

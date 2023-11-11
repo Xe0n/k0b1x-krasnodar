@@ -36,7 +36,7 @@ const Home = () => {
             <CardTitle>Загрузите ваш файл для начала работы 🚀</CardTitle>
           </CardHeader>
           <CardBody>
-            <CardText>Мы ожидаем от вас видео файл</CardText>
+            <CardText>Мы ожидаем от вас видео файл в формате <b>.mp4</b> или <b>.mov</b></CardText>
             <FileUploaderSingle
               responseData={responseData}
               setResponseData={setResponseData}
