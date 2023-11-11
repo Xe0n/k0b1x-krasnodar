@@ -8,3 +8,6 @@
 
 # API ключ
 Для работы проекта потребуется приватный API ключ, вы можете получить его у нас https://t.me/gesitnikov или https://t.me/artrsv
+
+# БД
+Необходимо изменить пароль (POSTGRES_PASSWORD в .db.env и SQL_PASSWORD в .env)
