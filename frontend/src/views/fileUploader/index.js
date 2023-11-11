@@ -18,9 +18,11 @@ const FileUploaderSingle = ({setResponseData, setReady, progress, setProgress}) 
 
 const { getRootProps, getInputProps } = useDropzone({
     multiple: false,
-    accept: 'video/*',
+    accept: {
+      'video/*': [],
+    },
     onDrop: acceptedFiles => {
-      setFiles([...files, ...acceptedFiles.map(file => Object.assign(file))])
+      setFiles(acceptedFiles.map(file => Object.assign(file)))
     }
   })
 
@@ -74,6 +76,7 @@ const { getRootProps, getInputProps } = useDropzone({
   const handleRemoveAllFiles = () => {
     setFiles([])
   }
+  const scrollTo = () => {window.scrollTo(0, 1000)}
   const extractFramesFromVideo = async (videoFile, numFrames) => {
     const video = document.createElement('video')
     video.src = URL.createObjectURL(videoFile)
@@ -130,10 +133,11 @@ const { getRootProps, getInputProps } = useDropzone({
     })
   }
   const handleSubmit = async () => {
-
+    setResponseData([])
     if (files.length > 0) {
     console.log(files[0])
-      const videoFrames = await extractFramesFromVideo(files[0], 5)
+    //Кол-во обрабатываемых кадров
+      const videoFrames = await extractFramesFromVideo(files[0], 10)
 
       setProgress(1)
   
@@ -146,7 +150,7 @@ const { getRootProps, getInputProps } = useDropzone({
                 method: "POST",
                 url: "https://detect.roboflow.com/bad-traders/1",
                 params: {
-                  api_key: "cJ6fc6c14cCYXtgEqPrX"
+                  api_key: import.meta.env.VITE_APITOKEN
                 },
                 data: base64Image,
                 headers: {
@@ -176,6 +180,7 @@ const { getRootProps, getInputProps } = useDropzone({
       makeRequests()
       setReady(true)
       ShowNotion()
+      scrollTo()
 
     } else {
       console.log('No files selected')
