@@ -40,12 +40,12 @@ const RenderImage = ({ responseData }) => {
     };
   }, [responseData]);
   const ShowNotionYes = () => {
-    toast.success('Спасибо, ваша информация будет использована для переобучения', {
+    toast.success('Спасибо, ваша информация будет использована для дообучения', {
         duration: 5000
     })
   }
   const ShowNotionNo = () => {
-    toast.error('Спасибо, ваша информация будет использована для переобучения', {
+    toast.error('Спасибо, ваша информация будет использована для дообучения', {
         duration: 5000
     })
   }
